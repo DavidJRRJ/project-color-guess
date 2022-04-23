@@ -36,17 +36,30 @@ function painelCor(){
     document.body.appendChild(divAdv);
     var resultado = geral[ansewer];
     divAdv.innerHTML = resultado;
-    divAdv.style.fontSize = '20px';
+    divAdv.style.fontSize = '22px';
 
     let texto = document.createElement('p');
     document.body.appendChild(texto);
     texto.innerHTML = 'Escolha uma cor'
     texto.id = 'answer';
 
+    let ponto = document.createElement('p');
+    localStorage.setItem('placar', '0');
+    let valor = 0 + parseInt(localStorage.getItem('placar'));
+    //console.log(valor);
+    document.body.appendChild(ponto);
+    ponto.innerHTML = valor;
+    ponto.id = 'score';
+
     for(let i = 0; i < result.length; i++){
         result[i].addEventListener('click', function(){
             sessionStorage.setItem('cor', result[i].style.backgroundColor);
-            if(sessionStorage.getItem('cor') === resultado) texto.innerHTML = 'Acertou!';
+            if(sessionStorage.getItem('cor') === resultado){
+                texto.innerHTML = 'Acertou!';
+                valor += 3;
+                localStorage.setItem('placar', valor);
+                ponto.innerHTML = localStorage.getItem('placar');
+            } 
             else texto.innerHTML = 'Errou! Tente novamente';
 
         })
@@ -62,4 +75,5 @@ botao.id = 'reset-game';
 botao.addEventListener('click', function(){
     location.reload();
 })
+
 
